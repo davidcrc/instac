@@ -7,5 +7,6 @@
     - yarn add semantic-ui-react semantic-ui-css
 - yarn remove node-sass
 - yarn add node-sass@4
+- yarn add @apollo/client graphql
 
 # Env
