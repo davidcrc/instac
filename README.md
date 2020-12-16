@@ -8,5 +8,6 @@
 - yarn remove node-sass
 - yarn add node-sass@4
 - yarn add @apollo/client graphql
+- yarn add formik
 
 # Env
