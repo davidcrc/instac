@@ -27,30 +27,42 @@ export default function RegisterForm(props) {
                 <Form.Input
                     type="text"
                     placeholder="Nombre y apellido"
-                    name="name" onChange={formik.handleChange}
+                    name="name" 
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
                 />
                 <Form.Input
                     type="text"
                     placeholder="Nombre de usuario"
-                    name="username" onChange={formik.handleChange}
+                    name="username" 
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
                 />
                 <Form.Input
                     type="text"
                     placeholder="Correo electronico"
-                    name="email" onChange={formik.handleChange}
+                    name="email" 
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
                 />
                 <Form.Input
                     type="password"
                     placeholder="Contraseña"
-                    name="password" onChange={formik.handleChange}
+                    name="password" 
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                 />
                 <Form.Input
                     type="password"
                     placeholder="Repetir Contraseña"
-                    name="repeatPassword" onChange={formik.handleChange}
+                    name="repeatPassword" 
+                    value={formik.values.repeatPassword}
+                    onChange={formik.handleChange}
                 />
 
                 <Button type="submit" className="btn-submit"> Registrar</Button>
+                
+                {/* <Button type="button" onClick={formik.handleReset} > Reiniciar</Button> */}
             </Form>
         </>
     )
