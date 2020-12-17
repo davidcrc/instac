@@ -2,13 +2,14 @@ import React from 'react';
 import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "../../../gql/user";
 import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
 
-    const {setshowLogin} =props;
+    const {setShowLogin} =props;
     // LLamando a GQL : [register = es el nombre de la mutation]
     const [register] = useMutation(REGISTER);
 
@@ -31,14 +32,19 @@ export default function RegisterForm(props) {
                 delete newUser.repeatPassword;
                 // console.log(newUser)
 
-                const result = await register({
+                await register({
                     variables: {
                         input: newUser
                     }
                 })
 
-                console.log(result)
+                // console.log(result)
+                toast.success("Usuario registrado correctamente")
+                // Modificamos el estado showLogin a true
+                setShowLogin(true);
+
             } catch (error) {
+                toast.error(error.message)
                 console.log("err ",error.message)
             }
         }

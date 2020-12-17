@@ -10,4 +10,6 @@
 - yarn add @apollo/client graphql
 - yarn add formik   // Estructuurar form
 - yarn add yup      // Validar form
+- yarn add react-toastify   // Toast para eventos
+
 # Env
