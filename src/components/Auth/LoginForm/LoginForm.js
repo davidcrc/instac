@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik"
 import * as Yup from "yup";
-// import { useMutation } from "@apollo/client";
-// import { LOGIN } from "../../../gql/user";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../../../gql/user";
 // import { setToken, decodeToken } from "../../../utils/token";
 // import useAuth from "../../../hooks/useAuth";
 import "./LoginForm.scss";
 
 export default function LoginForm() {
-  // const [error, setError] = useState("");
-  // const [login] = useMutation(LOGIN);
+  const [error, setError] = useState("");
+  const [login] = useMutation(LOGIN);
   // const { setUser } = useAuth();
 
   const formik = useFormik({
@@ -22,20 +22,21 @@ export default function LoginForm() {
       password: Yup.string().required("La contraseña es obligatorio"),
     }),
     onSubmit: async (formData) => {
-      console.log(formData)
-  //     setError("");
-  //     try {
-  //       const { data } = await login({
-  //         variables: {
-  //           input: formData,
-  //         },
-  //       });
-  //       const { token } = data.login;
-  //       setToken(token);
-  //       setUser(decodeToken(token));
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
+      // console.log(formData)
+      setError("");
+      try {
+        const { data } = await login({
+          variables: {
+            input: formData,
+          },
+        });
+        console.log(data)
+        // const { token } = data.login;
+        // setToken(token);
+        // setUser(decodeToken(token));
+      } catch (error) {
+        setError(error.message);
+      }
     },
   });
 
@@ -61,7 +62,7 @@ export default function LoginForm() {
       <Button type="submit" className="btn-submit">
         Iniciar sesión
       </Button>
-      {/* {error && <p className="submit-error">{error}</p>} */}
+      {error && <p className="submit-error">{error}</p>}
     </Form>
   );
 }
