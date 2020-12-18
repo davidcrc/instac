@@ -1,4 +1,4 @@
-// import jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { TOKEN } from "./constants";
 
 export function setToken(token) {
@@ -10,8 +10,7 @@ export function getToken() {
 }
 
 export function decodeToken(token) {
-  // return jwtDecode(token);
-  return null;
+  return jwtDecode(token);
 }
 
 export function removeToken() {

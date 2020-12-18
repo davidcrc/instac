@@ -35,7 +35,7 @@ export default function LoginForm() {
         // console.log(data)
         const { token } = data.login;
         setToken(token);
-        setUser(token);
+        setUser(decodeToken(token));
       } catch (error) {
         setError(error.message);
       }

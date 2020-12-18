@@ -11,5 +11,6 @@
 - yarn add formik   // Estructuurar form
 - yarn add yup      // Validar form
 - yarn add react-toastify   // Toast para eventos
+- yarn add jwt-decode       // 
 
 # Env
