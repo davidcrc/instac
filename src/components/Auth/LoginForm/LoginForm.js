@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
-// import { useFormik } from "formik"
+import { useFormik } from "formik"
 // import * as Yup from "yup";
 // import { useMutation } from "@apollo/client";
 // import { LOGIN } from "../../../gql/user";
@@ -13,15 +13,16 @@ export default function LoginForm() {
   // const [login] = useMutation(LOGIN);
   // const { setUser } = useAuth();
 
-  // const formik = useFormik({
-  //   initialValues: initialValues(),
+  const formik = useFormik({
+    initialValues: initialValues(),
   //   validationSchema: Yup.object({
   //     email: Yup.string()
   //       .email("El email no es valido")
   //       .required("El emial es obligatorio"),
   //     password: Yup.string().required("La contraseña es obligatorio"),
   //   }),
-  //   onSubmit: async (formData) => {
+    onSubmit: async (formData) => {
+      console.log(formData)
   //     setError("");
   //     try {
   //       const { data } = await login({
@@ -35,27 +36,26 @@ export default function LoginForm() {
   //     } catch (error) {
   //       setError(error.message);
   //     }
-  //   },
-  // });
+    },
+  });
 
   return (
-    <Form className="login-form" >
-    {/* <Form className="login-form" onSubmit={formik.handleSubmit}> */}
+    <Form className="login-form" onSubmit={formik.handleSubmit}>
       <h2>Ingresa para ver fotos y vídeos de tus amigos.</h2>
       <Form.Input
         type="text"
         placeholder="Correo electronico"
         name="email"
-        // value={formik.values.email}
-        // onChange={formik.handleChange}
+        value={formik.values.email}
+        onChange={formik.handleChange}
         // error={formik.errors.email && true}
       />
       <Form.Input
         type="password"
         placeholder="Contraseña"
         name="password"
-        // value={formik.values.password}
-        // onChange={formik.handleChange}
+        value={formik.values.password}
+        onChange={formik.handleChange}
         // error={formik.errors.password && true}
       />
       <Button type="submit" className="btn-submit">
@@ -66,9 +66,9 @@ export default function LoginForm() {
   );
 }
 
-// function initialValues() {
-//   return {
-//     email: "",
-//     password: "",
-//   };
-// }
+function initialValues() {
+  return {
+    email: "",
+    password: "",
+  };
+}
