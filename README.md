@@ -12,5 +12,6 @@
 - yarn add yup      // Validar form
 - yarn add react-toastify   // Toast para eventos
 - yarn add jwt-decode       // 
+- yarn add react-router-dom     // Sistema de rutas
 
 # Env
