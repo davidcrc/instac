@@ -5,14 +5,16 @@ import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../../../gql/user";
 import { setToken, decodeToken } from "../../../utils/token";
-// import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import "./LoginForm.scss";
 
 export default function LoginForm() {
   const [error, setError] = useState("");
   const [login] = useMutation(LOGIN);
-  // const { setUser } = useAuth();
+    // const auth = useAuth();
+  const { setUser } = useAuth();
 
+  // console.log(auth);
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object({
@@ -30,10 +32,10 @@ export default function LoginForm() {
             input: formData,
           },
         });
-        console.log(data)
+        // console.log(data)
         const { token } = data.login;
         setToken(token);
-        // setUser(decodeToken(token));
+        setUser(token);
       } catch (error) {
         setError(error.message);
       }
