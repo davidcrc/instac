@@ -1,5 +1,6 @@
 import React, { Children } from 'react'
 import { Container } from "semantic-ui-react";
+import Header from "../components/Header";
 
 export default function LayoutBasic(props) {
     // console.log(props);
@@ -7,7 +8,8 @@ export default function LayoutBasic(props) {
 
     return (
         <>
-            <h1>Header Layout</h1>
+            <Header/>
+            
             <Container className="layout-basic" >
                 {children}
             </Container>
