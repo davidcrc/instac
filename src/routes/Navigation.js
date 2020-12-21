@@ -14,7 +14,12 @@ export default function Navigation() {
                         key={index}
                         path={route.path}
                         exact={route.exact}
-                        render={(props) =>  <route.component {...props} /> }
+                        render={(props) =>  (
+                            <route.layout>
+                                <route.component {...props} />
+
+                            </route.layout>
+                        ) }
                     />
                 ))}
             </Switch>
