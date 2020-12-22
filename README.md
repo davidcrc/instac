@@ -14,5 +14,6 @@
 - yarn add jwt-decode       // 
 - yarn add react-router-dom     // Sistema de rutas
 - yarn add lodash           // simplificar el manejo y edición de objetos, arrays, etc
+- yarn add react-dropzone       // abrir la ventana de carga de archivos
 
 # Env
