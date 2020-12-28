@@ -16,5 +16,6 @@
 - yarn add lodash           // simplificar el manejo y edición de objetos, arrays, etc
 - yarn add react-dropzone       // abrir la ventana de carga de archivos
 - yarn add apollo-upload-client     // Para que suba todos los metadatos de un archivo
+- yarn add apollo-link-context      // Para enviar datos al context del server
 
 # Env
