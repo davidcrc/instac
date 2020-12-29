@@ -7,6 +7,7 @@ import UserNotFound from "../../UserNotFound";
 import ModalBasic from "../../Modal/ModalBasic";
 import AvatarForm from "../AvatarForm";
 import HeaderProfile from "./HeaderProfile";
+import SettingsForm from "../SettingsForm";
 import ImageNoFound from "../../../assets/avatar.png";
 import "./Profile.scss"
 
@@ -41,7 +42,7 @@ export default function Profile(props) {
             case "settings":
                 setTitleModal("")
                 setChildrenModal(
-                    <div><h2>Ajustes de perfil</h2></div>
+                    <SettingsForm setShowModal={setShowModal} />
                 )
                 setShowModal(true)
                 break;
