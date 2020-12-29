@@ -26,13 +26,15 @@ export default function Profile(props) {
     const {getUser} = data;
     
     
-    console.log("getUser ",getUser)
+    console.log("getUserr",getUser)
 
     const handlerModal = (type) => {
         switch (type) {
             case "avatar":
                 setTitleModal("Cambiar foto de perfil")
-                setChildrenModal(<AvatarForm setShowModal={setShowModal} />)
+                setChildrenModal(
+                    <AvatarForm setShowModal={setShowModal} auth={auth} />
+                )
                 setShowModal(true)
                 break;
         
@@ -45,7 +47,7 @@ export default function Profile(props) {
         <>
             <Grid className="profile" >
                 <Grid.Column width={5} className="profile__left" >
-                    <Image src={ImageNoFound} avatar onClick={ () => {if (username === auth.username) handlerModal("avatar")} } />
+                    <Image src={getUser.avatar? getUser.avatar: ImageNoFound} avatar onClick={ () => {if (username === auth.username) handlerModal("avatar")} } />
                 </Grid.Column>
 
                 <Grid.Column width={11} className="profile__right" >

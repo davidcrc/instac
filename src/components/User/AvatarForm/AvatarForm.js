@@ -3,14 +3,32 @@ import { Button } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
-import { UPDATE_AVATAR } from "../../../gql/user";
+import { UPDATE_AVATAR, GET_USER } from "../../../gql/user";
 import "./AvatarForm.scss"
 
 export default function AvatarForm(props) {
 
-    const {setShowModal} = props;
+    const {setShowModal, auth } = props;
     const [loading, setLoading] = useState(false)
-    const [updateAvatar] = useMutation( UPDATE_AVATAR)
+    // console.log("WTF", auth)
+    const [updateAvatar] = useMutation( UPDATE_AVATAR, {
+        
+        update(cache, {data: { updateAvatar }}) {
+            // console.log(updateAvatar)
+            const { getUser } = cache.readQuery({
+                query: GET_USER,
+                variables: { username: auth.username }
+            });
+
+            cache.writeQuery({
+                query: GET_USER,
+                variables: { username: auth.username },
+                data: {
+                    getUser: { ...getUser, avatar: updateAvatar.urlAvatar }
+                }
+            });
+        }
+    })
 
     const onDrop = useCallback(
         async (acceptedFile) => {
