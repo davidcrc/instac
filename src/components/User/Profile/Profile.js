@@ -38,7 +38,13 @@ export default function Profile(props) {
                 )
                 setShowModal(true)
                 break;
-        
+            case "settings":
+                setTitleModal("")
+                setChildrenModal(
+                    <div><h2>Ajustes de perfil</h2></div>
+                )
+                setShowModal(true)
+                break;
             default:
                 break;
         }
@@ -53,7 +59,7 @@ export default function Profile(props) {
 
                 <Grid.Column width={11} className="profile__right" >
 
-                    <HeaderProfile getUser={getUser} auth={auth}  />
+                    <HeaderProfile getUser={getUser} auth={auth} handlerModal={handlerModal} />
 
                     <div>Followers</div>
                     <div className="other" >
