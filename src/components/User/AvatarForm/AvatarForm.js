@@ -3,7 +3,7 @@ import { Button } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
-import { UPDATE_AVATAR, GET_USER } from "../../../gql/user";
+import { UPDATE_AVATAR, GET_USER, DELETE_AVATAR } from "../../../gql/user";
 import "./AvatarForm.scss"
 
 export default function AvatarForm(props) {
@@ -15,18 +15,40 @@ export default function AvatarForm(props) {
         
         update(cache, {data: { updateAvatar }}) {
             // console.log(updateAvatar)
+
+            // leer la query
             const { getUser } = cache.readQuery({
                 query: GET_USER,
                 variables: { username: auth.username }
             });
 
+            // reescribir la cache
             cache.writeQuery({
                 query: GET_USER,
                 variables: { username: auth.username },
                 data: {
-                    getUser: { ...getUser, avatar: updateAvatar.urlAvatar }
+                    getUser: { ...getUser, avatar: updateAvatar.urlAvatar }     // ... sirve como un : variable += variable
                 }
             });
+        }
+    })
+
+    const [deleteAvatar] = useMutation(DELETE_AVATAR, {
+        update(cache) {
+            // leer la query
+            const { getUser } = cache.readQuery({
+                query: GET_USER,
+                variables: {username: auth.username}
+            });
+
+            // reescribir la cache
+            cache.writeQuery({
+                query: GET_USER,
+                variables: {username: auth.username},
+                data: {
+                    getUser: {...getUser, avatar: ""}
+                }
+            })
         }
     })
 
@@ -65,10 +87,26 @@ export default function AvatarForm(props) {
         onDrop
     })
 
+    const onDeleteAvatar = async () => {
+        // console.log("eliminar avatar")
+        try {
+            const result = await deleteAvatar();
+            const {data } = result;
+
+            if(!data.deleteAvatar){
+                toast.warning("error al borrar el avatar")
+            }else {
+                setShowModal(false)
+            }
+        } catch (error) {
+            console.log("err delAvat", error)
+        }
+    }
+
     return (
         <div className="avatar-form" >
             <Button {...getRootProps()} loading={loading} >Cargar foto</Button>
-            <Button>Eliminar foto actual</Button>
+            <Button onClick={onDeleteAvatar} >Eliminar foto actual</Button>
             <Button onClick={() => setShowModal(false)} >Cancelar</Button>
             <input {...getInputProps()} />
         </div>
