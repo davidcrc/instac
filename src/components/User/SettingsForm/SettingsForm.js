@@ -10,7 +10,13 @@ import "./SettingsForm.scss"
 export default function SettingsForm(props) {
 
     // Podemos reutilizar el mismo modal para setear nuevas vistar dentro del mismo modal
-    const {setShowModal, setTitleModal, setChildrenModal, getUser } = props;
+    const {
+        setShowModal,
+        setTitleModal,
+        setChildrenModal,
+        getUser,
+        refetch
+    } = props;
 
     const history = useHistory();
     const client = useApolloClient();
@@ -30,6 +36,7 @@ export default function SettingsForm(props) {
             <EmailForm 
                 setShowModal={setShowModal} 
                 currentEmail={getUser.email}
+                refetch={refetch}
                 />
         )
     }

@@ -9,7 +9,7 @@ import "./EmailForm.scss"
 
 export default function EmailForm(props) {
     // console.log(props)
-    const {setShowModal, currentEmail} = props;
+    const {setShowModal, currentEmail, refetch} = props;
     const [updateUser] = useMutation(UPDATE_USER)
 
     const formik = useFormik({
@@ -29,6 +29,7 @@ export default function EmailForm(props) {
                 }
             })
             // console.log(result)
+            refetch();              // Actualiza la query (GET_USER desde el Server) que se define en profile => SettignForm y llega aqui
             setShowModal(false)
 
         } catch (error) {
