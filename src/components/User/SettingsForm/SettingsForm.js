@@ -19,7 +19,7 @@ export default function SettingsForm(props) {
         // console.log("Cambiar pass")
         setTitleModal("Cambiar la contraseña")
         setChildrenModal(
-            <PasswordForm/>
+            <PasswordForm onLogOut={onLogOut} />
         )
     }    
 
