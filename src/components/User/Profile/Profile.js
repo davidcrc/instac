@@ -42,7 +42,11 @@ export default function Profile(props) {
             case "settings":
                 setTitleModal("")
                 setChildrenModal(
-                    <SettingsForm setShowModal={setShowModal} />
+                    <SettingsForm 
+                        setShowModal={setShowModal} 
+                        setTitleModal={setTitleModal} 
+                        setChildrenModal={setChildrenModal}
+                        />
                 )
                 setShowModal(true)
                 break;
