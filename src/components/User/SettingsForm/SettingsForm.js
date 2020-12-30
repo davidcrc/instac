@@ -16,8 +16,8 @@ export default function SettingsForm(props) {
     const { logout } = useAuth();
 
     const onChangePassword = (params) => {
-        console.log("Cambiar pass")
-        setTitleModal("Cambiar la pass")
+        // console.log("Cambiar pass")
+        setTitleModal("Cambiar la contraseña")
         setChildrenModal(
             <PasswordForm/>
         )
