@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Search as SearchSUi } from "semantic-ui-react";
+import { Image, Search as SearchSUi } from "semantic-ui-react";
+import { Link } from 'react-router-dom';
 import { size } from "lodash";
 import { useQuery } from "@apollo/client";
 import { SEARCH } from "../../../gql/user";
+import ImageNotFound from "../../../assets/avatar.png"
 import "./Search.scss"
 
 export default function Search() {
@@ -15,7 +17,8 @@ export default function Search() {
     })
 
     // console.log(data);
-    console.log(results)
+    // console.log(results)
+    // Cambiara la vista solo si la variable data es modificada con nuevos datos
     useEffect(() => {
         if(size(data?.search) > 0 ) {
             const users = []
@@ -36,11 +39,18 @@ export default function Search() {
         }
     }, [data])
 
+    // Mira el cambio dentro del input
     const onChange = (e) => {
         if(e.target.value)
             setSearch(e.target.value)
         else
             setSearch(null)
+    }
+
+    // Borra los datos de buscados en el input
+    const handleResultSelect = () => {
+        setSearch(null)
+        setResults([]);
     }
 
     return (
@@ -51,6 +61,7 @@ export default function Search() {
             loading={loading}
             value={search || ""}
             onSearchChange={ onChange }
+            onResultSelect={handleResultSelect}
             results={results}
             resultRenderer={(e) => <ResulSearch data={e} /> }
         />
@@ -62,9 +73,12 @@ function ResulSearch(props) {
     const { data } = props
 
     return (
-        <div>
-            <h2>{data.title}</h2>
-            <h3>{data.username}</h3>
-        </div>
+        <Link className="search-users__item" to={`/${data.username}`} >
+            <Image src={data.avatar || ImageNotFound} />
+            <div>
+                <p>{data.title}</p>
+                <p>{data.username}</p>
+            </div>
+        </Link>
     )
 }
