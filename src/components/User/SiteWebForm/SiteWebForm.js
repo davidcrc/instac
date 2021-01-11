@@ -1,23 +1,23 @@
 import React from 'react'
-import { Form, Button, TextArea } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik"
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "../../../gql/user";
-import "./DescriptionForm.scss"
+import "./SiteWebForm.scss"
 
-export default function DescriptionForm(props) {
+export default function SiteWebForm(props) {
     // console.log(props)
-    const {setShowModal, currentDescription, refetch} = props;
+    const {setShowModal, currentSiteWeb, refetch} = props;
     const [updateUser] = useMutation(UPDATE_USER)
 
     const formik = useFormik({
         initialValues: {
-            descripcion: currentDescription || "",
+            sitioWeb: currentSiteWeb || "",
         },
         validationSchema: Yup.object({
-            descripcion: Yup.string().required("Descripcion requerida")
+            sitioWeb: Yup.string().required("Sitio web requerido")
         }),
         onSubmit: async (formData) => {
         //   console.log(formData)
@@ -33,21 +33,21 @@ export default function DescriptionForm(props) {
             setShowModal(false)
 
         } catch (error) {
-            console.log("err formEmail", error)
-            toast.error("Error al actualizar email")
+            console.log("err formSiteWeb", error)
+            toast.error("Error al actualizar sitio web")
           }
         },
     });
 
     return (
-        <Form className="description-form" onSubmit={formik.handleSubmit}>
-            <TextArea
-                placeholder="Descripcion"
-                name="descripcion"
-                value={formik.values.descripcion}
+        <Form className="site-web-form" onSubmit={formik.handleSubmit}>
+            <Form.Input 
+                placeholder="URL web" 
+                name="sitioWeb"
+                value={formik.values.sitioWeb}
                 onChange={formik.handleChange}
-                className={formik.errors.descripcion && "error" }
-            />
+                error={formik.errors.sitioWeb }
+                />
 
             <Button type="submit" className="btn-submit" >Actualizar</Button>
         </Form>

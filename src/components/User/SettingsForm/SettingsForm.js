@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import PasswordForm from "../PasswordForm";
 import EmailForm from "../EmailForm";
 import DescriptionForm from "../DescriptionForm";
+import SiteWebForm from "../SiteWebForm";
 import "./SettingsForm.scss"
 
 export default function SettingsForm(props) {
@@ -53,6 +54,17 @@ export default function SettingsForm(props) {
         )
     }
 
+    const onChangeWebSite = () => {
+        setTitleModal("Cambiar sitio web")
+        setChildrenModal(
+            <SiteWebForm 
+                setShowModal={setShowModal} 
+                currentSiteWeb={getUser.sitioWeb}
+                refetch={refetch}
+                />
+        )
+    }
+
     const onLogOut = () => {
         client.clearStore();
         logout();
@@ -64,7 +76,7 @@ export default function SettingsForm(props) {
             <Button onClick={onChangePassword}  >Cambiar password</Button>
             <Button onClick={onChangeEmail} >Cambiar email</Button>
             <Button onClick={onChangeDescription} >Descripción</Button>
-            <Button onClick={null} >Sitio web</Button>
+            <Button onClick={onChangeWebSite} >Sitio web</Button>
             <Button onClick={onLogOut} >Cerrar sesión</Button>
             <Button onClick={ () => setShowModal(false)} >Cancelar</Button>
         </div>
