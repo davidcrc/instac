@@ -1,13 +1,14 @@
 import React from 'react'
 import { Button } from "semantic-ui-react";
 import { useQuery, useMutation } from "@apollo/client";
-import { FOLLOW, IS_FOLLOW } from "../../../../gql/follow";
+import { FOLLOW, IS_FOLLOW, UN_FOLLOW } from "../../../../gql/follow";
 import "./HeaderProfile.scss"
 
 export default function HeaderProfile(props) {
 
     const { getUser, auth, handlerModal } = props
     const [ follow ] = useMutation(FOLLOW)
+    const [ unFollow ] = useMutation(UN_FOLLOW)
     const { data, loading, refetch } = useQuery(IS_FOLLOW, {
         variables: {
             username: getUser.username
@@ -17,7 +18,7 @@ export default function HeaderProfile(props) {
     // console.log(data)
     const buttonFollow = () => {
         if(data.isFollow) {
-            return <Button className="btn-danger" >
+            return <Button className="btn-danger" onClick={onUnFollow} >
                 Dejar de seguir
             </Button>
         }else {
@@ -39,6 +40,21 @@ export default function HeaderProfile(props) {
             refetch();      //volvera a preguntar al servidor si esta siguiendo
         } catch (error) {
             console.log("err follw", error)
+        }
+    }
+
+    const onUnFollow = async () => {
+        
+        try {
+            await unFollow({
+                variables: {
+                    username: getUser.username
+                }
+            })
+
+            refetch();      //volvera a preguntar al servidor si esta siguiendo
+        } catch (error) {
+            console.log("err unFollw", error)
         }
     }
 
