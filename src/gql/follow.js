@@ -15,3 +15,12 @@ export const UN_FOLLOW = gql`
     mutation unFollow($username: String!){
         unFollow( username: $username)
 }`;
+
+export const GET_FOLLOWERS = gql`
+    query getFollowers($username: String!){
+        getFollowers(username: $username){
+        username
+        name
+        avatar
+    }
+}`;
