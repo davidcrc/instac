@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { size } from "lodash";
 import { useQuery } from "@apollo/client";
-import { GET_FOLLOWERS } from "../../../../gql/follow"
+import { GET_FOLLOWERS, GET_FOLLOWEDS } from "../../../../gql/follow"
 import ListUsers from '../../ListUsers';
 import ModalBasic from "../../../Modal/ModalBasic";
 import "./Followers.scss"
@@ -24,13 +24,35 @@ export default function Followers(props) {
         }
     });
 
+
+    const {
+        data: dataFolloweds,
+        loading: loadingFolloweds,
+        startPolling: startPollingFolloweds,
+        stopPolling: stopPollingFolloweds
+    } = useQuery(GET_FOLLOWEDS, {
+        variables: {
+            username
+        }
+    });
+
     useEffect(() => {
         startPollingFollowers(3000)
 
         return () => {
             stopPollingFollowers();
         }
-    }, [startPollingFollowers, startPollingFollowers])
+    }, [startPollingFollowers, stopPollingFollowers])
+
+
+    useEffect(() => {
+
+        startPollingFolloweds(3000)
+
+        return () => {
+            stopPollingFolloweds();
+        }
+    }, [startPollingFolloweds, stopPollingFolloweds])
 
     const openFollowers = () => {
         setTitleModal("Seguidores");
@@ -39,8 +61,9 @@ export default function Followers(props) {
         setShowModal(true);
     }
 
-    if(loadingFollowers ) return null;
+    if( loadingFollowers || loadingFolloweds ) return null;
     const { getFollowers } = dataFollowers
+    const { getFolloweds } = dataFolloweds
     // console.log(getFollowers)
 
     return (
@@ -53,7 +76,10 @@ export default function Followers(props) {
                     <span> {size(getFollowers)} </span> 
                     seguidores
                 </p>
-                <p className="link" ><span>*</span> seguidos</p>
+                <p className="link" >
+                    <span>{ size(getFolloweds) } </span> 
+                    seguidos
+                </p>
             </div>
 
             <ModalBasic show={showModal} setShow={setShowModal} title={titleModal} >
