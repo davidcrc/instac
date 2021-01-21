@@ -8,10 +8,10 @@ import "./Followers.scss"
 
 export default function Followers(props) {
 
-    const {username} = props;
-    const [showModal, setShowModal] = useState(false);
-    const [titleModal, setTitleModal] = useState("");
-    const [childrenModal, setChildrenModal] = useState(null);
+    const { username} = props;
+    const [ showModal, setShowModal ] = useState(false);
+    const [ titleModal, setTitleModal ] = useState("");
+    const [ childrenModal, setChildrenModal ] = useState(null);
 
     const {
         data: dataFollowers,
@@ -57,7 +57,14 @@ export default function Followers(props) {
     const openFollowers = () => {
         setTitleModal("Seguidores");
         setChildrenModal(
-            <ListUsers users={ getFollowers } setShowModal={setShowModal} />)
+            <ListUsers users={ getFollowers } setShowModal={ setShowModal } />)
+        setShowModal(true);
+    }
+
+    const openFolloweds = () => {
+        setTitleModal("usuarios seguidos");
+        setChildrenModal(
+            <ListUsers users={ getFolloweds } setShowModal={ setShowModal } />)
         setShowModal(true);
     }
 
@@ -72,18 +79,18 @@ export default function Followers(props) {
                 <p>
                     <span>**</span> publics
                 </p>
-                <p className="link" onClick={openFollowers} >
-                    <span> {size(getFollowers)} </span> 
+                <p className="link" onClick={ openFollowers } >
+                    <span> {size( getFollowers )} </span> 
                     seguidores
                 </p>
-                <p className="link" >
-                    <span>{ size(getFolloweds) } </span> 
+                <p className="link" onClick={ openFolloweds } >
+                    <span>{ size( getFolloweds ) } </span> 
                     seguidos
                 </p>
             </div>
 
-            <ModalBasic show={showModal} setShow={setShowModal} title={titleModal} >
-                {childrenModal}
+            <ModalBasic show={ showModal } setShow={ setShowModal } title={ titleModal } >
+                { childrenModal }
             </ModalBasic>
         </>
     )
