@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { size } from "lodash";
 import { useQuery } from "@apollo/client";
 import { GET_FOLLOWERS } from "../../../../gql/follow"
+import ListUsers from '../../ListUsers';
 import ModalBasic from "../../../Modal/ModalBasic";
 import "./Followers.scss"
 
@@ -32,8 +33,9 @@ export default function Followers(props) {
     }, [startPollingFollowers, startPollingFollowers])
 
     const openFollowers = () => {
-        setTitleModal("seguidores");
-        setChildrenModal(<div><h3>Lista de segudiores</h3></div>)
+        setTitleModal("Seguidores");
+        setChildrenModal(
+            <ListUsers users={ getFollowers } setShowModal={setShowModal} />)
         setShowModal(true);
     }
 
@@ -49,7 +51,7 @@ export default function Followers(props) {
                 </p>
                 <p className="link" onClick={openFollowers} >
                     <span> {size(getFollowers)} </span> 
-                    segudiores
+                    seguidores
                 </p>
                 <p className="link" ><span>*</span> seguidos</p>
             </div>
