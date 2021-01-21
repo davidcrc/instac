@@ -31,6 +31,11 @@ export default function ModalUpload(props) {
         setShow(false);
         // setFileUpload(null);     //opcional
     }
+
+    const onPublish = () => {
+        console.log("publicando...")
+    }
+    
     
     return (
         <Modal size="small" open={show} onClose={onClose}  className="modal-upload" >
@@ -52,6 +57,12 @@ export default function ModalUpload(props) {
                     <div className="image" style={{ backgroundImage: `url("${fileUpload.preview}")` }} >
 
                     </div>
+            )}
+
+            { fileUpload && (
+                <Button className="btn-upload btn-action" onClick={onPublish} >
+                    Publicar
+                </Button>
             )}
 
         </Modal>
