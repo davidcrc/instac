@@ -42,7 +42,7 @@ export default function ModalUpload(props) {
         try {
             const result = await Publish({
                 variables: {
-                    file: fileUpload
+                    file: fileUpload.file
                 }
             });
             console.log("result publish", result);
