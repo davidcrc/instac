@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { Modal, Icon, Button, Dimmer, Loader } from "semantic-ui-react";
+import { toast } from 'react-toastify';
 import { useDropzone } from "react-dropzone";
 import { useMutation } from '@apollo/client';
 import { PUBLISH } from "../../../gql/publication";
@@ -10,6 +11,7 @@ export default function ModalUpload(props) {
     
     const { show, setShow} = props;
     const [fileUpload, setFileUpload] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
     const [ Publish ] = useMutation(PUBLISH)
 
     // console.log(fileUpload)
@@ -33,21 +35,34 @@ export default function ModalUpload(props) {
 
     const onClose = () => {
         setShow(false);
-        // setFileUpload(null);     //opcional
+        setIsLoading(false)
+        setFileUpload(null);
+        setShow(false);
     }
 
     const onPublish = async () => {
-        console.log("publicando...")
+        // console.log("publicando...")
 
         try {
+            setIsLoading(true);
             const result = await Publish({
                 variables: {
                     file: fileUpload.file
                 }
             });
-            console.log("result publish", result);
+            // console.log("result publish", result);
+
+            const { data } = result;
+            if(!data.publish.status){
+                toast.warning("Error en la publicación")
+                isLoading(false);
+            }
+            else{
+                onClose();
+            }
         } catch (error) {
             console.log("err publish", error );
+            toast.warning("Error en la publicación")
         }
     }
     
@@ -79,6 +94,14 @@ export default function ModalUpload(props) {
                     Publicar
                 </Button>
             )}
+
+            { isLoading && (
+                <Dimmer active className="publishing" >
+                    <Loader />
+                    <p>Publicando ...</p>
+                </Dimmer>
+            )
+            }
 
         </Modal>
     )
