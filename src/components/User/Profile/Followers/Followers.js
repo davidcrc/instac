@@ -8,7 +8,7 @@ import "./Followers.scss"
 
 export default function Followers(props) {
 
-    const { username} = props;
+    const { username, totalPublications } = props;
     const [ showModal, setShowModal ] = useState(false);
     const [ titleModal, setTitleModal ] = useState("");
     const [ childrenModal, setChildrenModal ] = useState(null);
@@ -77,7 +77,7 @@ export default function Followers(props) {
         <>
             <div className="followers" >
                 <p>
-                    <span>**</span> publics
+                    <span>{totalPublications}</span> { totalPublications > 1 ? `publicaciones` : `publicacion` }
                 </p>
                 <p className="link" onClick={ openFollowers } >
                     <span> {size( getFollowers )} </span> 
